@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    tools:context=".FieldActivity"
+    android:id="@+id/mainLayout"
+    android:elevation="0sp">
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight=".1">
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="backToDimensions"
+            android:text="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:text="The Fielder's Choice"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text=""/>
+
+    </LinearLayout>
+
+
+    <!--RelativeLayout
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight=".7"
+        android:background="@drawable/baseball_field"
+        android:orientation="horizontal"
+        app:srcCompat="@drawable/baseball_field"-->
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".7"
+            android:orientation="vertical"
+            android:background="@drawable/baseball_field">
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight=".1">
+
+            </TableRow>
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight=".07"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".7"
+                    android:gravity="bottom">
+                <Button
+                    android:id="@+id/plcButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@android:drawable/btn_default_small"
+                    android:onClick="positionButtonClicked"
+                    android:text="LC" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="center_horizontal">
+                <Button
+                    android:id="@+id/pcButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@android:drawable/btn_default_small"
+                    android:onClick="positionButtonClicked"
+                    android:text="CF" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".7"
+                    android:gravity="bottom">
+                <Button
+                    android:id="@+id/prcButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@android:drawable/btn_default_small"
+                    android:onClick="positionButtonClicked"
+                    android:text="RC" />
+                </RelativeLayout>
+
+
+
+            </TableRow>
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight=".05"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+                    <Button
+                        android:id="@+id/plButton"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentEnd="true"
+                        android:background="@android:drawable/btn_default_small"
+                        android:onClick="positionButtonClicked"
+                        android:text="LF" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+                    <Button
+                        android:id="@+id/prButton"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_alignParentStart="true"
+                        android:background="@android:drawable/btn_default_small"
+                        android:onClick="positionButtonClicked"
+                        android:text="RF" />
+                </RelativeLayout>
+
+
+
+            </TableRow>
+            <TableRow
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight=".1"
+                android:gravity="center">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                <Button
+                    android:id="@+id/pllButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@android:drawable/btn_default_small"
+                    android:onClick="positionButtonClicked"
+                    android:text="LL" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                <Button
+                    android:id="@+id/pssButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@android:drawable/btn_default_small"
+                    android:onClick="positionButtonClicked"
+                    android:text="SS" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                <Button
+                    android:id="@+id/p2bButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="bottom"
+                    android:background="@android:drawable/btn_default_small"
+                    android:onClick="positionButtonClicked"
+                    android:text="2B" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/prlButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@android:drawable/btn_default_small"
+                    android:onClick="positionButtonClicked"
+                    android:text="RL" />
+                </RelativeLayout>
+</TableRow>
+
+<TableRow
+    android:layout_height="0dp"
+    android:layout_width="match_parent"
+    android:layout_weight=".05"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+    <Button
+        android:id="@+id/p3bButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:background="@android:drawable/btn_default_small"
+        android:onClick="positionButtonClicked"
+        android:text="3B" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+    <Button
+        android:id="@+id/p1bButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:background="@android:drawable/btn_default_small"
+        android:onClick="positionButtonClicked"
+        android:text="1B" />
+    </RelativeLayout>
+
+</TableRow>
+<TableRow
+    android:layout_height="0dp"
+    android:layout_width="match_parent"
+    android:layout_weight=".3">
+
+</TableRow>
+
+</TableLayout>
+<!--Button
+android:id="@+id/pllButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentStart="true"
+android:layout_alignParentTop="true"
+android:layout_marginStart="22dp"
+android:layout_marginTop="169dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="LL" />
+
+
+<Button
+android:id="@+id/plButton"
+android:layout_width="49dp"
+android:layout_height="wrap_content"
+android:layout_alignParentStart="true"
+android:layout_alignParentTop="true"
+android:layout_marginStart="69dp"
+android:layout_marginTop="109dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="LF" />
+
+<Button
+android:id="@+id/p3bButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentStart="true"
+android:layout_alignParentTop="true"
+android:layout_marginStart="97dp"
+android:layout_marginTop="281dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="3B" />
+
+<Button
+android:id="@+id/plcButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentStart="true"
+android:layout_alignParentTop="true"
+android:layout_marginStart="128dp"
+android:layout_marginTop="71dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="LC" />
+
+<Button
+android:id="@+id/pssButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentTop="true"
+android:layout_alignParentEnd="true"
+android:layout_marginTop="214dp"
+android:layout_marginEnd="230dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="SS" />
+
+<Button
+android:id="@+id/pcButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentStart="true"
+android:layout_alignParentTop="true"
+android:layout_marginStart="182dp"
+android:layout_marginTop="47dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="CF" />
+
+<Button
+android:id="@+id/prcButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentTop="true"
+android:layout_alignParentEnd="true"
+android:layout_marginTop="67dp"
+android:layout_marginEnd="124dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="RC" />
+
+<Button
+android:id="@+id/p2bButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentTop="true"
+android:layout_alignParentEnd="true"
+android:layout_marginTop="209dp"
+android:layout_marginEnd="137dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="2B" />
+
+<Button
+android:id="@+id/prButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentTop="true"
+android:layout_alignParentEnd="true"
+android:layout_marginTop="103dp"
+android:layout_marginEnd="77dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="RF" />
+
+<Button
+android:id="@+id/p1bButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentStart="true"
+android:layout_alignParentTop="true"
+android:layout_alignParentEnd="true"
+android:layout_alignParentBottom="true"
+android:layout_marginStart="267dp"
+android:layout_marginTop="272dp"
+android:layout_marginEnd="99dp"
+android:layout_marginBottom="214dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="1B" />
+
+
+<Button
+android:id="@+id/prlButton"
+android:layout_width="45dp"
+android:layout_height="45dp"
+android:layout_alignParentTop="true"
+android:layout_alignParentEnd="true"
+android:layout_marginTop="158dp"
+android:layout_marginEnd="27dp"
+android:background="@android:drawable/btn_default"
+android:onClick="positionButtonClicked"
+android:text="RL" />
+
+</RelativeLayout-->
+
+
+            <!--Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="sendThrowMsg"
+                android:text="THROW" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:adjustViewBounds="true"
+            android:gravity="bottom"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/background2" /-->
+
+    <RelativeLayout
+        android:id="@+id/buttonLayout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight=".1">
+
+        <RadioGroup
+            android:id="@+id/elevationSelection"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <RadioButton
+                android:id="@+id/groundRadioButton"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight=".02"
+                android:onClick="elevationButtonClicked"
+                android:text="Ground Ball" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight=".46"
+                android:text=""/>
+
+            <RadioButton
+                android:id="@+id/lineRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight=".02"
+                android:onClick="elevationButtonClicked"
+                android:text="Line Drive" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight=".46"
+                android:text=""/>
+
+            <RadioButton
+                android:id="@+id/flyRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight=".02"
+                android:onClick="elevationButtonClicked"
+                android:text="Fly Ball" />
+        </RadioGroup>
+    </RelativeLayout>
+
+</LinearLayout>
