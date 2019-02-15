@@ -164,6 +164,11 @@ public class DeviceControlActivity extends Activity {
         //TODO: Add entry point to dimensions layout here
         setContentView(R.layout.dimensions);
 
+        ((EditText) (findViewById(R.id.LFTextEntry))).setText(Integer.toString(FieldCalculations.fieldDimensions[0]));
+        ((EditText) (findViewById(R.id.CFTextEntry))).setText(Integer.toString(FieldCalculations.fieldDimensions[1]));
+        ((EditText) (findViewById(R.id.RFTextEntry))).setText(Integer.toString(FieldCalculations.fieldDimensions[2]));
+        ((EditText) (findViewById(R.id.OffBatSpeedEntry))).setText(Integer.toString(FieldCalculations.offBatSpeed));
+
         final Intent intent = getIntent();
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
@@ -577,6 +582,8 @@ public class DeviceControlActivity extends Activity {
         FieldCalculations.pssAngle = Short.parseShort(((EditText)(findViewById(R.id.pssPop2))).getText().toString());
         FieldCalculations.pssSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.pssLine1))).getText().toString());
         FieldCalculations.pssSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.pssGround1))).getText().toString());
+
+        setContentView(R.layout.dimensions);
     }
 
     public void positionButtonClicked(View view) {

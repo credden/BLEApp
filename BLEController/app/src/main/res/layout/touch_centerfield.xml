@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:baselineAligned="false"
-    tools:context=".MainActivity"
+    tools:context=".DeviceControlActivity"
     android:id="@+id/touchCenterfieldLayout">
 
     <LinearLayout

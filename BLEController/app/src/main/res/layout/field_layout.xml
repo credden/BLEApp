@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:baselineAligned="false"
-    tools:context=".FieldActivity"
+    tools:context=".DeviceControlActivity"
     android:id="@+id/mainLayout"
     android:elevation="0sp">
 

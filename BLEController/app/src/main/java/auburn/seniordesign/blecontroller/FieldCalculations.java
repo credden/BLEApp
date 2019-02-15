@@ -16,7 +16,7 @@ public class FieldCalculations {
 
     public static int[] fieldDimensions = {300,300,300}; // [RF,CF,LF]
     public static boolean useP2P = false;
-    public static int offBatSpeed;
+    public static int offBatSpeed = 50;
 
     public static short[] pitchSettings = {2048,2048};
 
