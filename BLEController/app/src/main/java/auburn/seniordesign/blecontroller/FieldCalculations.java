@@ -47,6 +47,8 @@ public class FieldCalculations {
     public static int currentElevation;
 
 
+    private static final byte PACKET_HDR = 0x21;
+
     private static final byte ENABLE_MSG_HDR = 0x00;
     private static final byte THROW_MSG_HDR = 0x01;
     private static final byte ANGLE_MSG_HDR = 0x02;
@@ -62,14 +64,14 @@ public class FieldCalculations {
 
 
 
-    public static byte[] angleMsg = {ANGLE_MSG_HDR,0x00,0x00};
-    public static byte[] elevationMsg = {ELEV_MSG_HDR,0x00,0x00};
-    public static byte[] speedMsg = {SPEED_MSG_HDR,0x00,0x00};
-    public static byte[] throwMsg = {THROW_MSG_HDR,0x00,0x00};
-    public static byte[] upMsg = {UP_MSG_HDR,0x00,0x00};
-    public static byte[] downMsg = {DOWN_MSG_HDR,0x00,0x00};
-    public static byte[] leftMsg = {LEFT_MSG_HDR,0x00,0x00};
-    public static byte[] rightMsg = {RIGHT_MSG_HDR,0x00,0x00};
+    public static byte[] angleMsg = {PACKET_HDR,ANGLE_MSG_HDR,0x00,0x00};
+    public static byte[] elevationMsg = {PACKET_HDR,ELEV_MSG_HDR,0x00,0x00};
+    public static byte[] speedMsg = {PACKET_HDR,SPEED_MSG_HDR,0x00,0x00};
+    public static byte[] throwMsg = {PACKET_HDR,THROW_MSG_HDR,0x00,0x01};
+    public static byte[] upMsg = {PACKET_HDR,UP_MSG_HDR,0x00,0x00};
+    public static byte[] downMsg = {PACKET_HDR,DOWN_MSG_HDR,0x00,0x00};
+    public static byte[] leftMsg = {PACKET_HDR,LEFT_MSG_HDR,0x00,0x00};
+    public static byte[] rightMsg = {PACKET_HDR,RIGHT_MSG_HDR,0x00,0x00};
 
 
     private OutputStream outputStream;
@@ -141,8 +143,8 @@ public class FieldCalculations {
         short speedCount;
 
         speedCount = (byte) (((88*offBatSpeed*12)/(double)(Math.PI*WHEEL_DIAMETER)) * (4095/(double)3450));
-        speedMsg[1] = (byte) ((speedCount & 0xFF00) >> 8);
-        speedMsg[2] = (byte) (speedCount & 0x00FF);
+        speedMsg[2] = (byte) ((speedCount & 0xFF00) >> 8);
+        speedMsg[3] = (byte) (speedCount & 0x00FF);
     }
 
     public static void formatUpMsg(byte status)
@@ -171,253 +173,253 @@ public class FieldCalculations {
         {
             case R.id.p1bButton:
 
-                angleMsg[1] = (byte) ((p1bAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (p1bAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((p1bAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (p1bAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((p1bSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p1bSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p1bSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p1bSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((p1bSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p1bSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p1bSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p1bSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((p1bSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p1bSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p1bSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p1bSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.p2bButton:
 
-                angleMsg[1] = (byte) ((p2bAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (p2bAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((p2bAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (p2bAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((p2bSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p2bSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p2bSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p2bSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((p2bSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p2bSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p2bSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p2bSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((p2bSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p2bSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p2bSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p2bSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.p3bButton:
 
-                angleMsg[1] = (byte) ((p3bAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (p3bAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((p3bAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (p3bAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((p3bSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p3bSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p3bSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p3bSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((p3bSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p3bSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p3bSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p3bSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((p3bSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (p3bSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((p3bSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (p3bSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.pssButton:
 
-                angleMsg[1] = (byte) ((pssAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (pssAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((pssAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (pssAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((pssSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pssSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pssSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pssSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((pssSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pssSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pssSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pssSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((pssSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pssSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pssSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pssSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.prlButton:
 
-                angleMsg[1] = (byte) ((prlAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (prlAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((prlAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (prlAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((prlSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prlSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prlSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prlSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((prlSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prlSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prlSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prlSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((prlSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prlSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prlSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prlSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.prButton:
 
-                angleMsg[1] = (byte) ((prfAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (prfAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((prfAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (prfAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((prfSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prfSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prfSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prfSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((prfSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prfSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prfSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prfSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((prfSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prfSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prfSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prfSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.prcButton:
 
-                angleMsg[1] = (byte) ((prcAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (prcAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((prcAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (prcAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((prcSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prcSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prcSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prcSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((prcSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prcSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prcSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prcSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((prcSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (prcSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((prcSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (prcSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.pcButton:
 
-                angleMsg[1] = (byte) ((pcfAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (pcfAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((pcfAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (pcfAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((pcfSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pcfSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pcfSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pcfSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((pcfSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pcfSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pcfSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pcfSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((pcfSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pcfSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pcfSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pcfSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.plcButton:
 
-                angleMsg[1] = (byte) ((plcAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (plcAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((plcAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (plcAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((plcSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (plcSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((plcSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (plcSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((plcSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (plcSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((plcSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (plcSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((plcSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (plcSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((plcSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (plcSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.plButton:
 
-                angleMsg[1] = (byte) ((plfAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (plfAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((plfAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (plfAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((plfSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (plfSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((plfSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (plfSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((plfSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (plfSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((plfSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (plfSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((plfSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (plfSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((plfSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (plfSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
 
             case R.id.pllButton:
 
-                angleMsg[1] = (byte) ((pllAngle & 0x00000F00) >> 8);
-                angleMsg[2] = (byte) (pllAngle & 0x000000FF);
+                angleMsg[2] = (byte) ((pllAngle & 0x00000F00) >> 8);
+                angleMsg[3] = (byte) (pllAngle & 0x000000FF);
 
                 switch (currentElevation)
                 {
                     case R.id.groundRadioButton:
-                        elevationMsg[1] = (byte) ((pllSettings[2] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pllSettings[2] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pllSettings[2] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pllSettings[2] & 0x000000FF);
                         break;
                     case R.id.lineRadioButton:
-                        elevationMsg[1] = (byte) ((pllSettings[1] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pllSettings[1] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pllSettings[1] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pllSettings[1] & 0x000000FF);
                         break;
                     case R.id.flyRadioButton:
                     default:
-                        elevationMsg[1] = (byte) ((pllSettings[0] & 0x00000F00) >> 8);
-                        elevationMsg[2] = (byte) (pllSettings[0] & 0x000000FF);
+                        elevationMsg[2] = (byte) ((pllSettings[0] & 0x00000F00) >> 8);
+                        elevationMsg[3] = (byte) (pllSettings[0] & 0x000000FF);
                         break;
                 }
                 break;
