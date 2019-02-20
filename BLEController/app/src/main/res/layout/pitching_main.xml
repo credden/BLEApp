@@ -59,7 +59,6 @@
                 android:layout_height="100dp"
                 android:layout_alignParentBottom="true"
                 android:textSize="50sp"
-                android:onClick="adjustPitchSettings"
                 android:text="+"/>
         </RelativeLayout>
 
@@ -70,27 +69,41 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
             <Button
                 android:id="@+id/pitchSettingsLeft"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginEnd="50dp"
                 android:textSize="50sp"
-                android:onClick="adjustPitchSettings"
                 android:text="-"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
             <Button
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:onClick="throwPitch"
+                android:onClick="sendThrowMsg"
                 android:text="THROW"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
             <Button
                 android:id="@+id/pitchSettingsRight"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginStart="50dp"
                 android:textSize="50sp"
-                android:onClick="adjustPitchSettings"
                 android:text="+"/>
+            </LinearLayout>
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -105,7 +118,6 @@
                 android:layout_height="100dp"
                 android:layout_alignParentTop="true"
                 android:textSize="50sp"
-                android:onClick="adjustPitchSettings"
                 android:text="-"/>
         </RelativeLayout>
     </LinearLayout>

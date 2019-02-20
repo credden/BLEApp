@@ -90,6 +90,16 @@ public class DeviceControlActivity extends Activity {
         }
     };
 
+    View.OnTouchListener pitchLayoutTouchListener =
+            new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    adjustPitchSettings(v, event);
+
+                    return false;
+                }
+            };
+
     // Handles various events fired by the Service.
     // ACTION_GATT_CONNECTED: connected to a GATT server.
     // ACTION_GATT_DISCONNECTED: disconnected from a GATT server.
@@ -321,28 +331,15 @@ public class DeviceControlActivity extends Activity {
         return intentFilter;
     }
 
-    public void onClickWrite(View v){
-        if(mBluetoothLeService != null) {
-            byte[] msg = new byte[1];
-            msg[0] = (byte) 0xAA;
-            mBluetoothLeService.writeCustomCharacteristic(msg);
-        }
-    }
-
-    public void onClickRead(View v){
-        if(mBluetoothLeService != null) {
-            byte[] msg;
-            msg = mBluetoothLeService.readCustomCharacteristic();
-            System.out.println("Received: " + msg.toString());
-        }
-    }
-
     public boolean sendBLEMessage(byte[] msg){
-        if(mBluetoothLeService != null) {
+        if(mBluetoothLeService != null)
+        {
+            System.out.println("Sending BLE Message: [" + String.format("%02X",msg[0]) + "," + String.format("%02X",msg[1]) + "," + String.format("%02X",msg[2]) + "]");
             return mBluetoothLeService.writeCustomCharacteristic(msg);
         }
         else
         {
+            System.err.println("Failed to send BLE Message: [" +String.format("%02X", msg[0]) + "," + String.format("%02X",msg[1]) + "," + String.format("%02X",msg[2]) + "]");
             return false;
         }
     }
@@ -350,42 +347,41 @@ public class DeviceControlActivity extends Activity {
     public byte[] recvBLEMessage(){
         if(mBluetoothLeService != null) {
             byte[] msg;
+
             msg = mBluetoothLeService.readCustomCharacteristic();
+            System.out.print("Receiving BLE Message: [");
+            if (msg.length > 0)
+                System.out.print(String.format("%02x",msg[0]));
+            for (int i = 1; i < msg.length; i++)
+            {
+                System.out.print("," + String.format("%02x",msg[i]));
+            }
+            System.out.print("]\n");
+
             return msg;
         }
         else
         {
+            System.err.println("Failed to receive BLE Message");
             return null;
         }
     }
 
     public void saveFieldDimensions(View button) {
 
-        byte[] speedMsg = {0x00,0x00};
+        FieldCalculations.saveFieldDimensions(
+                Integer.parseInt(((EditText) (findViewById(R.id.LFTextEntry))).getText().toString()),
+                Integer.parseInt(((EditText) (findViewById(R.id.CFTextEntry))).getText().toString()),
+                Integer.parseInt(((EditText) (findViewById(R.id.RFTextEntry))).getText().toString()),
+                Integer.parseInt(((EditText) (findViewById(R.id.OffBatSpeedEntry))).getText().toString()));
 
-        FieldCalculations.fieldDimensions[0] = Integer.parseInt(((EditText) (findViewById(R.id.LFTextEntry))).getText().toString());
-        FieldCalculations.fieldDimensions[1] = Integer.parseInt(((EditText) (findViewById(R.id.CFTextEntry))).getText().toString());
-        FieldCalculations.fieldDimensions[2] = Integer.parseInt(((EditText) (findViewById(R.id.RFTextEntry))).getText().toString());
+        FieldCalculations.formatSpeedMsg();
 
-        FieldCalculations.offBatSpeed = Integer.parseInt(((EditText) (findViewById(R.id.OffBatSpeedEntry))).getText().toString());
-
-        speedMsg[0] = (byte) ((FieldCalculations.offBatSpeed & 0x00000F00) >> 8);
-        speedMsg[0] = (byte) (speedMsg[0] | 0x40);
-        speedMsg[1] = (byte) (FieldCalculations.offBatSpeed & 0x000000FF);
-
-        sendBLEMessage(speedMsg);
-
-        System.out.println("*****Field Dimensions are RF:" + FieldCalculations.fieldDimensions[0] + " CF:" +
-                FieldCalculations.fieldDimensions[1] + " LF:" + FieldCalculations.fieldDimensions[2]);
-
-        /**********************************************************************************
-         * Once dimensions are entered, then we must switch view and create touch listeners
-         *********************************************************************************/
+        sendBLEMessage(FieldCalculations.speedMsg);
 
         RadioGroup radioGroup = findViewById(R.id.modeSelection);
-        int radioButtonID = radioGroup.getCheckedRadioButtonId();
 
-        switch (radioButtonID) {
+        switch (radioGroup.getCheckedRadioButtonId()) {
             //case R.id.p2pRadioButton:
             //    p2p = new FieldActivity.Point2Point();
             //    useP2P = true;
@@ -393,12 +389,14 @@ public class DeviceControlActivity extends Activity {
 
             case R.id.pitchRadioButton:
                 setContentView(R.layout.pitching_main);
-                FieldCalculations.useP2P = false;
+                findViewById(R.id.pitchSettingsUp).setOnTouchListener(pitchLayoutTouchListener);
+                findViewById(R.id.pitchSettingsDown).setOnTouchListener(pitchLayoutTouchListener);
+                findViewById(R.id.pitchSettingsLeft).setOnTouchListener(pitchLayoutTouchListener);
+                findViewById(R.id.pitchSettingsRight).setOnTouchListener(pitchLayoutTouchListener);
                 break;
 
-            default:
+            case R.id.fieldRadioButton:
                 setContentView(R.layout.field_layout);
-
                 findViewById(R.id.p1bButton).setBackgroundResource(android.R.drawable.btn_default);
                 findViewById(R.id.p2bButton).setBackgroundResource(android.R.drawable.btn_default);
                 findViewById(R.id.p3bButton).setBackgroundResource(android.R.drawable.btn_default);
@@ -410,8 +408,6 @@ public class DeviceControlActivity extends Activity {
                 findViewById(R.id.plcButton).setBackgroundResource(android.R.drawable.btn_default);
                 findViewById(R.id.plButton).setBackgroundResource(android.R.drawable.btn_default);
                 findViewById(R.id.pllButton).setBackgroundResource(android.R.drawable.btn_default);
-
-                FieldCalculations.useP2P = false;
                 break;
         }
     }
@@ -428,62 +424,66 @@ public class DeviceControlActivity extends Activity {
 
     public void sendThrowMsg(View view)
     {
-        byte[] msg = {0x00,0x00};
-
-        msg[0] = (byte) (msg[0] | 0x80);
-
-        sendBLEMessage(msg);
-    }
-
-    public void throwPitch(View view)
-    {
-        byte[] msg = new byte[2];
-
-        msg[0] = (byte) 0b10000000;
-        msg[1] = 0b00000000;
-
-        sendBLEMessage(msg);
+        sendBLEMessage(FieldCalculations.throwMsg);
     }
 
 
-    //TODO: change this to press and hold messages
-    public void adjustPitchSettings(View view)
+    public void adjustPitchSettings(View view, MotionEvent event)
     {
-        byte[] msg = {0x00,0x00};
-
         switch(view.getId()) {
             case R.id.pitchSettingsDown:
-                FieldCalculations.pitchSettings[1] = (short) (FieldCalculations.pitchSettings[1] - 1);
-                msg[0] = (byte) ((FieldCalculations.pitchSettings[1] & 0x00000F00) >> 8);
-                msg[0] = (byte) (msg[0] | 0b00010000);
-                msg[1] = (byte) (FieldCalculations.pitchSettings[1] & 0x000000FF);
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
+                {
+                    FieldCalculations.formatUpMsg((byte) 1);
+                }
+                else if (event.getActionMasked() == MotionEvent.ACTION_UP)
+                {
+                    FieldCalculations.formatUpMsg((byte) 0);
+                }
+
+                sendBLEMessage(FieldCalculations.upMsg);
                 break;
 
             case R.id.pitchSettingsLeft:
-                FieldCalculations.pitchSettings[0] = (short) (FieldCalculations.pitchSettings[0] - 1);
-                msg[0] = (byte) ((FieldCalculations.pitchSettings[0] & 0x00000F00) >> 8);
-                msg[0] = (byte) (msg[0] | 0b00100000);
-                msg[1] = (byte) (FieldCalculations.pitchSettings[0] & 0x000000FF);
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
+                {
+                    FieldCalculations.formatLeftMsg((byte) 1);
+                }
+                else if (event.getActionMasked() == MotionEvent.ACTION_UP)
+                {
+                    FieldCalculations.formatLeftMsg((byte) 0);
+                }
+
+                sendBLEMessage(FieldCalculations.leftMsg);
                 break;
 
             case R.id.pitchSettingsRight:
-                FieldCalculations.pitchSettings[0] = (short) (FieldCalculations.pitchSettings[0] + 1);
-                msg[0] = (byte) ((FieldCalculations.pitchSettings[0] & 0x00000F00) >> 8);
-                msg[0] = (byte) (msg[0] | 0b00100000);
-                msg[1] = (byte) (FieldCalculations.pitchSettings[0] & 0x000000FF);
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
+                {
+                    FieldCalculations.formatRightMsg((byte) 1);
+                }
+                else if (event.getActionMasked() == MotionEvent.ACTION_UP)
+                {
+                    FieldCalculations.formatRightMsg((byte) 0);
+                }
+
+                sendBLEMessage(FieldCalculations.rightMsg);
                 break;
 
             case R.id.pitchSettingsUp:
             default:
-                FieldCalculations.pitchSettings[1] = (short) (FieldCalculations.pitchSettings[1] + 1);
-                msg[0] = (byte) ((FieldCalculations.pitchSettings[1] & 0x00000F00) >> 8);
-                msg[0] = (byte) (msg[0] | 0b00010000);
-                msg[1] = (byte) (FieldCalculations.pitchSettings[1] & 0x000000FF);
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN)
+                {
+                    FieldCalculations.formatUpMsg((byte) 1);
+                }
+                else if (event.getActionMasked() == MotionEvent.ACTION_UP)
+                {
+                    FieldCalculations.formatUpMsg((byte) 0);
+                }
+
+                sendBLEMessage(FieldCalculations.upMsg);
                 break;
-
         }
-
-        sendBLEMessage(msg);
     }
 
     public void goToSettingsPage(View view)
@@ -586,9 +586,8 @@ public class DeviceControlActivity extends Activity {
         setContentView(R.layout.dimensions);
     }
 
-    public void positionButtonClicked(View view) {
-
-
+    public void positionButtonClicked(View view)
+    {
         findViewById(R.id.p1bButton).setBackgroundResource(android.R.drawable.btn_default);
         findViewById(R.id.p2bButton).setBackgroundResource(android.R.drawable.btn_default);
         findViewById(R.id.p3bButton).setBackgroundResource(android.R.drawable.btn_default);
@@ -612,14 +611,12 @@ public class DeviceControlActivity extends Activity {
 
     public void elevationButtonClicked(View view)
     {
-
-        RadioGroup radioGroup = findViewById(R.id.elevationSelection);
-        FieldCalculations.currentElevation = radioGroup.getCheckedRadioButtonId();
+        FieldCalculations.currentElevation = ((RadioGroup)(findViewById(R.id.elevationSelection))).getCheckedRadioButtonId();
 
         FieldCalculations.formatMessages();
 
-        sendBLEMessage(FieldCalculations.angleMsg);
         sendBLEMessage(FieldCalculations.elevationMsg);
+        sendBLEMessage(FieldCalculations.angleMsg);
     }
 
 
