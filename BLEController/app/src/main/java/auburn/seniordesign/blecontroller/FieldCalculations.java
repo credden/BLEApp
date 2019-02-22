@@ -59,7 +59,7 @@ public class FieldCalculations {
     private static final byte UP_MSG_HDR = 0x07;
     private static final byte DOWN_MSG_HDR = 0x08;
 
-    private static final int WHEEL_DIAMETER = 10; //inches
+    private static final int WHEEL_DIAMETER = 12; //inches
 
 
 
@@ -140,9 +140,10 @@ public class FieldCalculations {
 
     public static void formatSpeedMsg()
     {
-        short speedCount;
+        int speedCount;
 
-        speedCount = (byte) (((88*offBatSpeed*12)/(double)(Math.PI*WHEEL_DIAMETER)) * (4095/(double)3450));
+        //speedCount = (byte) (((88*offBatSpeed*12)/(double)(Math.PI*WHEEL_DIAMETER)) * (4095/(double)3450));
+        speedCount = (int) (((88*offBatSpeed*12)/(Math.PI*WHEEL_DIAMETER))*(4095/((double)3450)));
         speedMsg[2] = (byte) ((speedCount & 0xFF00) >> 8);
         speedMsg[3] = (byte) (speedCount & 0x00FF);
     }
