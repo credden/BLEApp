@@ -18,28 +18,28 @@ public class FieldersChoice {
     public static boolean useP2P = false;
     public static int offBatSpeed = 50;
 
-    public static short[] pllSettings = {2048,2048,2048};
-    public static short[] plfSettings = {2048,2048,2048};
-    public static short[] plcSettings = {2048,2048,2048};
-    public static short[] pcfSettings = {2048,2048,2048};
-    public static short[] prcSettings = {2048,2048,2048};
-    public static short[] prfSettings = {2048,2048,2048};
-    public static short[] prlSettings = {2048,2048,2048};
-    public static short[] p1bSettings = {2048,2048,2048};
-    public static short[] p2bSettings = {2048,2048,2048};
-    public static short[] p3bSettings = {2048,2048,2048};
-    public static short[] pssSettings = {2048,2048,2048};
-    public static short pllAngle = 2048;
-    public static short plfAngle = 2048;
-    public static short plcAngle = 2048;
-    public static short pcfAngle = 2048;
-    public static short prcAngle = 2048;
-    public static short prfAngle = 2048;
-    public static short prlAngle = 2048;
-    public static short p1bAngle = 2048;
-    public static short p2bAngle = 2048;
-    public static short p3bAngle = 2048;
-    public static short pssAngle = 2048;
+    public static short[] pllSettings = {612,560,503};
+    public static short[] plfSettings = {612,560,503};
+    public static short[] plcSettings = {612,560,503};
+    public static short[] pcfSettings = {612,560,503};
+    public static short[] prcSettings = {612,560,503};
+    public static short[] prfSettings = {612,560,503};
+    public static short[] prlSettings = {612,560,503};
+    public static short[] p1bSettings = {612,560,503};
+    public static short[] p2bSettings = {612,560,503};
+    public static short[] p3bSettings = {612,560,503};
+    public static short[] pssSettings = {612,560,503};
+    public static short pllAngle = 439;
+    public static short plfAngle = 508;
+    public static short plcAngle = 577;
+    public static short pcfAngle = 646;
+    public static short prcAngle = 691;
+    public static short prfAngle = 735;
+    public static short prlAngle = 779;
+    public static short p1bAngle = 758;
+    public static short p2bAngle = 711;
+    public static short p3bAngle = 480;
+    public static short pssAngle = 585;
 
     public static int currentPosition;
     public static int currentElevation;
@@ -56,6 +56,8 @@ public class FieldersChoice {
     private static final byte LEFT_MSG_HDR = 0x06;
     private static final byte UP_MSG_HDR = 0x07;
     private static final byte DOWN_MSG_HDR = 0x08;
+    private static final byte HOME_MSG_HDR = 0x09;
+    private static final byte WHEEL_ENABLE_MSG_HDR = 0x0A;
 
     private static final int WHEEL_DIAMETER = 12; //inches
 
@@ -64,6 +66,7 @@ public class FieldersChoice {
     public static UUID BLERecvCharacteristicUUID = UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E");
 
 
+    public static byte[] enableMsg = {PACKET_HDR,ENABLE_MSG_HDR,0x00,0x00};
     public static byte[] angleMsg = {PACKET_HDR,ANGLE_MSG_HDR,0x00,0x00};
     public static byte[] elevationMsg = {PACKET_HDR,ELEV_MSG_HDR,0x00,0x00};
     public static byte[] speedMsg = {PACKET_HDR,SPEED_MSG_HDR,0x00,0x00};
@@ -72,6 +75,8 @@ public class FieldersChoice {
     public static byte[] downMsg = {PACKET_HDR,DOWN_MSG_HDR,0x00,0x00};
     public static byte[] leftMsg = {PACKET_HDR,LEFT_MSG_HDR,0x00,0x00};
     public static byte[] rightMsg = {PACKET_HDR,RIGHT_MSG_HDR,0x00,0x00};
+    public static byte[] homeMsg = {PACKET_HDR,HOME_MSG_HDR,0x00,0x00};
+    public static byte[] wheelEnableMsg = {PACKET_HDR,WHEEL_ENABLE_MSG_HDR,0x00,0x00};
 
 
     private OutputStream outputStream;
@@ -166,6 +171,16 @@ public class FieldersChoice {
     public static void formatRightMsg(byte status)
     {
         rightMsg[2] = status;
+    }
+
+    public static void formatEnableMsg(byte status)
+    {
+        enableMsg[2] = status;
+    }
+
+    public static void formatWheelEnableMsg(byte status)
+    {
+        wheelEnableMsg[2] = status;
     }
 
     public static void formatMessages()

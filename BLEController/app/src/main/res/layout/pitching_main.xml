@@ -23,18 +23,21 @@
             android:onClick="backToDimensions"
             android:text="Back" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="3"
-            android:text="The Fielder's Choice"/>
-        <TextView
-            android:id="@+id/blank"
+        <ToggleButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=""/>
+            android:onClick="sendWheelEnableMsg"
+            android:textOff="Wheels On"
+            android:textOn="Wheels Off"/>
+        <ToggleButton
+            android:id="@+id/enableButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="sendEnableMsg"
+            android:textOff="Enable"
+            android:textOn="Disable"/>
 
     </LinearLayout>
 

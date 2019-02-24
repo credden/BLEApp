@@ -38,6 +38,7 @@ import android.widget.ExpandableListView;
 import android.widget.RadioGroup;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -426,6 +427,22 @@ public class DeviceControlActivity extends Activity {
         sendBLEMessage(FieldersChoice.throwMsg);
     }
 
+    public void sendEnableMsg(View view)
+    {
+        FieldersChoice.formatEnableMsg(((ToggleButton)view).isChecked()?(byte)0x01:(byte)0x00);
+        sendBLEMessage(FieldersChoice.enableMsg);
+    }
+
+    public void goToHomePosition(View view)
+    {
+        sendBLEMessage(FieldersChoice.homeMsg);
+    }
+
+    public void sendWheelEnableMsg(View view)
+    {
+        FieldersChoice.formatWheelEnableMsg(((ToggleButton)view).isChecked()?(byte)0x01:(byte)0x00);
+        sendBLEMessage(FieldersChoice.wheelEnableMsg);
+    }
 
     public void adjustPitchSettings(View view, MotionEvent event)
     {
