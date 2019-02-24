@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -59,7 +60,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/pllPop2"
+                            android:id="@+id/pllAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -152,7 +153,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/plfPop2"
+                            android:id="@+id/plfAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -245,7 +246,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/plcPop2"
+                            android:id="@+id/plcAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -338,7 +339,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/pcfPop2"
+                            android:id="@+id/pcfAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -431,7 +432,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/prcPop2"
+                            android:id="@+id/prcAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -524,7 +525,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/prfPop2"
+                            android:id="@+id/prfAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -562,17 +563,6 @@
                             android:gravity="center"
                             android:inputType="number" />
                     </LinearLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -604,6 +594,18 @@
                             android:inputType="number" />
                     </LinearLayout>
 
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -627,7 +629,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/prlPop2"
+                            android:id="@+id/prlAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -720,7 +722,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/p1bPop2"
+                            android:id="@+id/p1bAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -813,7 +815,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/p2bPop2"
+                            android:id="@+id/p2bAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -906,7 +908,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/p3bPop2"
+                            android:id="@+id/p3bAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -999,7 +1001,7 @@
                             android:inputType="number" />
 
                         <EditText
-                            android:id="@+id/pssPop2"
+                            android:id="@+id/pssAngle"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"

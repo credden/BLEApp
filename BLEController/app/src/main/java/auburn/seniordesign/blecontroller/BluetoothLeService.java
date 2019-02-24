@@ -323,13 +323,13 @@ public class BluetoothLeService extends Service {
             return null;
         }
         /*check if the service is available on the device*/
-        BluetoothGattService mCustomService = mBluetoothGatt.getService(UUID.fromString("00001530-1212-EFDE-1523-785FEABCD123"));
+        BluetoothGattService mCustomService = mBluetoothGatt.getService(FieldersChoice.BLEServiceUUID);
         if(mCustomService == null){
             Log.w(TAG, "Custom BLE Service not found");
             return null;
         }
         /*get the read characteristic from the service*/
-        BluetoothGattCharacteristic mReadCharacteristic = mCustomService.getCharacteristic(UUID.fromString("00001531-1212-EFDE-1523-785FEABCD123"));
+        BluetoothGattCharacteristic mReadCharacteristic = mCustomService.getCharacteristic(FieldersChoice.BLERecvCharacteristicUUID);
         if(mBluetoothGatt.readCharacteristic(mReadCharacteristic) == false){
             Log.w(TAG, "Failed to read characteristic");
             return null;
@@ -346,13 +346,13 @@ public class BluetoothLeService extends Service {
             return false;
         }
         /*check if the service is available on the device*/
-        BluetoothGattService mCustomService = mBluetoothGatt.getService(UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E"));
+        BluetoothGattService mCustomService = mBluetoothGatt.getService(FieldersChoice.BLEServiceUUID);
         if(mCustomService == null){
             Log.w(TAG, "Custom BLE Service not found");
             return false;
         }
         /*get the read characteristic from the service*/
-        BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E"));
+        BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic(FieldersChoice.BLESendCharacteristicUUID);
         mWriteCharacteristic.setValue(msg);
         if(mBluetoothGatt.writeCharacteristic(mWriteCharacteristic) == false){
             Log.w(TAG, "Failed to write characteristic");

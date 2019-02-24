@@ -12,13 +12,11 @@ import java.io.OutputStream;
 import java.io.InputStream;
 import java.util.UUID;
 
-public class FieldCalculations {
+public class FieldersChoice {
 
     public static int[] fieldDimensions = {300,300,300}; // [RF,CF,LF]
     public static boolean useP2P = false;
     public static int offBatSpeed = 50;
-
-    public static short[] pitchSettings = {2048,2048};
 
     public static short[] pllSettings = {2048,2048,2048};
     public static short[] plfSettings = {2048,2048,2048};
@@ -61,7 +59,9 @@ public class FieldCalculations {
 
     private static final int WHEEL_DIAMETER = 12; //inches
 
-
+    public static UUID BLEServiceUUID = UUID.fromString("6E400001-B5A3-F393-E0A9-E50E24DCCA9E");
+    public static UUID BLESendCharacteristicUUID = UUID.fromString("6E400002-B5A3-F393-E0A9-E50E24DCCA9E");
+    public static UUID BLERecvCharacteristicUUID = UUID.fromString("6E400003-B5A3-F393-E0A9-E50E24DCCA9E");
 
 
     public static byte[] angleMsg = {PACKET_HDR,ANGLE_MSG_HDR,0x00,0x00};
