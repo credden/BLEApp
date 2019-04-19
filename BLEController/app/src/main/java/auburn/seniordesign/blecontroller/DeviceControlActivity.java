@@ -457,7 +457,7 @@ public class DeviceControlActivity extends Activity {
                     FieldersChoice.formatDownMsg((byte) 0);
                 }
 
-                sendBLEMessage(FieldersChoice.upMsg);
+                sendBLEMessage(FieldersChoice.downMsg);
                 break;
 
             case R.id.pitchSettingsLeft:

@@ -89,48 +89,6 @@ public class FieldersChoice {
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
 
-
-
-    // Used to load the 'native-lib' library on application startup.
-    //static {
-    //    System.loadLibrary("native-lib");
-   // }
-
-    //@Override
-    //public void onCreate(Bundle savedInstanceState) {
-    //    super.onCreate(savedInstanceState);
-
-        //BluetoothDevice device = null;
-
-        //setContentView(R.layout.dimensions);
-
-
-    //}
-
-
-
-
-
-
-/*
-    private void sendMessage(byte[] msg)
-    {
-        int ack = -1;
-        boolean sent = false;
-        boolean ackReceived = false;
-
-        sent = super.sendBLEMessage(msg);
-
-        if (!sent)
-        {
-            System.err.println("Failed to send: [" + Integer.toHexString(msg[0]) + "," + Integer.toHexString(msg[1]) + "]");
-        }
-
-    }
-
-    */
-
-
     public static void saveFieldDimensions(int rightFieldDistance, int centerFieldDistance,
                                       int leftFieldDistance, int mph)
     {
