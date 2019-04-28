@@ -368,12 +368,21 @@ public class DeviceControlActivity extends Activity {
     }
 
     public void saveFieldDimensions(View button) {
-
-        FieldersChoice.saveFieldDimensions(
-                Integer.parseInt(((EditText) (findViewById(R.id.LFTextEntry))).getText().toString()),
-                Integer.parseInt(((EditText) (findViewById(R.id.CFTextEntry))).getText().toString()),
-                Integer.parseInt(((EditText) (findViewById(R.id.RFTextEntry))).getText().toString()),
-                Integer.parseInt(((EditText) (findViewById(R.id.OffBatSpeedEntry))).getText().toString()));
+        try {
+            FieldersChoice.saveFieldDimensions(
+                    Integer.parseInt(((EditText) (findViewById(R.id.LFTextEntry))).getText().toString()),
+                    Integer.parseInt(((EditText) (findViewById(R.id.CFTextEntry))).getText().toString()),
+                    Integer.parseInt(((EditText) (findViewById(R.id.RFTextEntry))).getText().toString()),
+                    Integer.parseInt(((EditText) (findViewById(R.id.OffBatSpeedEntry))).getText().toString()));
+        }
+        catch (NumberFormatException e)
+        {
+            System.err.println(e.getMessage());
+            ((EditText) (findViewById(R.id.LFTextEntry))).setText(Integer.toString(FieldersChoice.fieldDimensions[0]));
+            ((EditText) (findViewById(R.id.CFTextEntry))).setText(Integer.toString(FieldersChoice.fieldDimensions[1]));
+            ((EditText) (findViewById(R.id.RFTextEntry))).setText(Integer.toString(FieldersChoice.fieldDimensions[2]));
+            ((EditText) (findViewById(R.id.OffBatSpeedEntry))).setText(Integer.toString(FieldersChoice.offBatSpeed));
+        }
 
         FieldersChoice.formatSpeedMsg();
 
@@ -436,6 +445,18 @@ public class DeviceControlActivity extends Activity {
     public void goToHomePosition(View view)
     {
         sendBLEMessage(FieldersChoice.homeMsg);
+
+        findViewById(R.id.p1bButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.p2bButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.p3bButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.pssButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.prlButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.prButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.prcButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.pcButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.plcButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.plButton).setBackgroundResource(android.R.drawable.btn_default);
+        findViewById(R.id.pllButton).setBackgroundResource(android.R.drawable.btn_default);
     }
 
     public void sendWheelEnableMsg(View view)
@@ -554,51 +575,57 @@ public class DeviceControlActivity extends Activity {
 
     public void saveSettings(View view)
     {
-        FieldersChoice.pllSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.pllPop1))).getText().toString());
-        FieldersChoice.pllAngle = Short.parseShort(((EditText)(findViewById(R.id.pllAngle))).getText().toString());
-        FieldersChoice.pllSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.pllLine1))).getText().toString());
-        FieldersChoice.pllSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.pllGround1))).getText().toString());
-        FieldersChoice.plfSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.plfPop1))).getText().toString());
-        FieldersChoice.plfAngle = Short.parseShort(((EditText)(findViewById(R.id.plfAngle))).getText().toString());
-        FieldersChoice.plfSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.plfLine1))).getText().toString());
-        FieldersChoice.plfSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.plfGround1))).getText().toString());
-        FieldersChoice.plcSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.plcPop1))).getText().toString());
-        FieldersChoice.plcAngle = Short.parseShort(((EditText)(findViewById(R.id.plcAngle))).getText().toString());
-        FieldersChoice.plcSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.plcLine1))).getText().toString());
-        FieldersChoice.plcSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.plcGround1))).getText().toString());
-        FieldersChoice.pcfSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.pcfPop1))).getText().toString());
-        FieldersChoice.pcfAngle = Short.parseShort(((EditText)(findViewById(R.id.pcfAngle))).getText().toString());
-        FieldersChoice.pcfSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.pcfLine1))).getText().toString());
-        FieldersChoice.pcfSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.pcfGround1))).getText().toString());
-        FieldersChoice.prcSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.prcPop1))).getText().toString());
-        FieldersChoice.prcAngle = Short.parseShort(((EditText)(findViewById(R.id.prcAngle))).getText().toString());
-        FieldersChoice.prcSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.prcLine1))).getText().toString());
-        FieldersChoice.prcSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.prcGround1))).getText().toString());
-        FieldersChoice.prfSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.prfPop1))).getText().toString());
-        FieldersChoice.prfAngle = Short.parseShort(((EditText)(findViewById(R.id.prfAngle))).getText().toString());
-        FieldersChoice.prfSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.prfLine1))).getText().toString());
-        FieldersChoice.prfSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.prfGround1))).getText().toString());
-        FieldersChoice.prlSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.prlPop1))).getText().toString());
-        FieldersChoice.prlAngle = Short.parseShort(((EditText)(findViewById(R.id.prlAngle))).getText().toString());
-        FieldersChoice.prlSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.prlLine1))).getText().toString());
-        FieldersChoice.prlSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.prlGround1))).getText().toString());
-        FieldersChoice.p1bSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.p1bPop1))).getText().toString());
-        FieldersChoice.p1bAngle = Short.parseShort(((EditText)(findViewById(R.id.p1bAngle))).getText().toString());
-        FieldersChoice.p1bSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.p1bLine1))).getText().toString());
-        FieldersChoice.p1bSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.p1bGround1))).getText().toString());
-        FieldersChoice.p2bSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.p2bPop1))).getText().toString());
-        FieldersChoice.p2bAngle = Short.parseShort(((EditText)(findViewById(R.id.p2bAngle))).getText().toString());
-        FieldersChoice.p2bSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.p2bLine1))).getText().toString());
-        FieldersChoice.p2bSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.p2bGround1))).getText().toString());
-        FieldersChoice.p3bSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.p3bPop1))).getText().toString());
-        FieldersChoice.p3bAngle = Short.parseShort(((EditText)(findViewById(R.id.p3bAngle))).getText().toString());
-        FieldersChoice.p3bSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.p3bLine1))).getText().toString());
-        FieldersChoice.p3bSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.p3bGround1))).getText().toString());
-        FieldersChoice.pssSettings[0] = Short.parseShort(((EditText)(findViewById(R.id.pssPop1))).getText().toString());
-        FieldersChoice.pssAngle = Short.parseShort(((EditText)(findViewById(R.id.pssAngle))).getText().toString());
-        FieldersChoice.pssSettings[1] = Short.parseShort(((EditText)(findViewById(R.id.pssLine1))).getText().toString());
-        FieldersChoice.pssSettings[2] = Short.parseShort(((EditText)(findViewById(R.id.pssGround1))).getText().toString());
+        try {
+            FieldersChoice.pllSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.pllPop1))).getText().toString());
+            FieldersChoice.pllAngle = Short.parseShort(((EditText) (findViewById(R.id.pllAngle))).getText().toString());
+            FieldersChoice.pllSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.pllLine1))).getText().toString());
+            FieldersChoice.pllSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.pllGround1))).getText().toString());
+            FieldersChoice.plfSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.plfPop1))).getText().toString());
+            FieldersChoice.plfAngle = Short.parseShort(((EditText) (findViewById(R.id.plfAngle))).getText().toString());
+            FieldersChoice.plfSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.plfLine1))).getText().toString());
+            FieldersChoice.plfSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.plfGround1))).getText().toString());
+            FieldersChoice.plcSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.plcPop1))).getText().toString());
+            FieldersChoice.plcAngle = Short.parseShort(((EditText) (findViewById(R.id.plcAngle))).getText().toString());
+            FieldersChoice.plcSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.plcLine1))).getText().toString());
+            FieldersChoice.plcSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.plcGround1))).getText().toString());
+            FieldersChoice.pcfSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.pcfPop1))).getText().toString());
+            FieldersChoice.pcfAngle = Short.parseShort(((EditText) (findViewById(R.id.pcfAngle))).getText().toString());
+            FieldersChoice.pcfSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.pcfLine1))).getText().toString());
+            FieldersChoice.pcfSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.pcfGround1))).getText().toString());
+            FieldersChoice.prcSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.prcPop1))).getText().toString());
+            FieldersChoice.prcAngle = Short.parseShort(((EditText) (findViewById(R.id.prcAngle))).getText().toString());
+            FieldersChoice.prcSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.prcLine1))).getText().toString());
+            FieldersChoice.prcSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.prcGround1))).getText().toString());
+            FieldersChoice.prfSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.prfPop1))).getText().toString());
+            FieldersChoice.prfAngle = Short.parseShort(((EditText) (findViewById(R.id.prfAngle))).getText().toString());
+            FieldersChoice.prfSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.prfLine1))).getText().toString());
+            FieldersChoice.prfSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.prfGround1))).getText().toString());
+            FieldersChoice.prlSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.prlPop1))).getText().toString());
+            FieldersChoice.prlAngle = Short.parseShort(((EditText) (findViewById(R.id.prlAngle))).getText().toString());
+            FieldersChoice.prlSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.prlLine1))).getText().toString());
+            FieldersChoice.prlSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.prlGround1))).getText().toString());
+            FieldersChoice.p1bSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.p1bPop1))).getText().toString());
+            FieldersChoice.p1bAngle = Short.parseShort(((EditText) (findViewById(R.id.p1bAngle))).getText().toString());
+            FieldersChoice.p1bSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.p1bLine1))).getText().toString());
+            FieldersChoice.p1bSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.p1bGround1))).getText().toString());
+            FieldersChoice.p2bSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.p2bPop1))).getText().toString());
+            FieldersChoice.p2bAngle = Short.parseShort(((EditText) (findViewById(R.id.p2bAngle))).getText().toString());
+            FieldersChoice.p2bSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.p2bLine1))).getText().toString());
+            FieldersChoice.p2bSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.p2bGround1))).getText().toString());
+            FieldersChoice.p3bSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.p3bPop1))).getText().toString());
+            FieldersChoice.p3bAngle = Short.parseShort(((EditText) (findViewById(R.id.p3bAngle))).getText().toString());
+            FieldersChoice.p3bSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.p3bLine1))).getText().toString());
+            FieldersChoice.p3bSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.p3bGround1))).getText().toString());
+            FieldersChoice.pssSettings[0] = Short.parseShort(((EditText) (findViewById(R.id.pssPop1))).getText().toString());
+            FieldersChoice.pssAngle = Short.parseShort(((EditText) (findViewById(R.id.pssAngle))).getText().toString());
+            FieldersChoice.pssSettings[1] = Short.parseShort(((EditText) (findViewById(R.id.pssLine1))).getText().toString());
+            FieldersChoice.pssSettings[2] = Short.parseShort(((EditText) (findViewById(R.id.pssGround1))).getText().toString());
+        }
+        catch (NumberFormatException e)
+        {
+            System.err.println(e.getMessage());
 
+        }
         backToDimensions(null);
     }
 
@@ -622,6 +649,7 @@ public class DeviceControlActivity extends Activity {
         FieldersChoice.formatMessages();
 
         sendBLEMessage(FieldersChoice.angleMsg);
+        // I believe this should send both messages, but the hardware currently does not support it
         //sendBLEMessage(FieldersChoice.elevationMsg);
     }
 
@@ -632,12 +660,16 @@ public class DeviceControlActivity extends Activity {
         FieldersChoice.formatMessages();
 
         sendBLEMessage(FieldersChoice.elevationMsg);
+        // I believe this should send both messages, but the hardware currently does not support it
         //sendBLEMessage(FieldersChoice.angleMsg);
     }
 
     /******************************************************************************************
      * BETA POINT2POINT CODE BELOW IN THIS CLASS
      *****************************************************************************************/
+    /* This code could potentially be used to place the machine anywhere on the field and throw
+     * to anywhere on the field. THIS HAS NOT BEEN TESTED
+     */
 
     private class Point2Point {
 
